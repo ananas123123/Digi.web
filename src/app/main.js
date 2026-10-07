@@ -1,4 +1,5 @@
 import "../styles/main.css";
+import NotFound from "../pages/NotFound/NotFound.jsx";
 
 const RELEASES_API = "https://api.github.com/repos/ananas123123/Digi-Factory-1.17.7.5/releases";
 let releaseCache = null;
@@ -123,14 +124,14 @@ function help() {
 }
 
 async function render() {
-  const key = location.hash.slice(1) || "/";
+  const key = location.pathname !== "/" ? "__notfound__" : (location.hash.slice(1) || "/");
   let html;
   if (key === "/") html = home();
   else if (key === "/download") html = await download();
   else if (key === "/releases") html = await releases();
   else if (key === "/requirements") html = requirements();
   else if (key === "/verify") html = await verify();
-  else html = help();
+  else html = NotFound();
   document.querySelector("#app").innerHTML = html;
   if (key === "/") hydrateHome();
   const copy = document.querySelector("#copy");
