@@ -11,7 +11,7 @@ export default function NotFound() {
           The page you're looking for may have been moved, deleted, or never existed.
         </p>
         <div class="not-found-actions">
-          <a class="not-found-button" href="#/">Back to Digi</a>
+          <a class="not-found-button" href="/#/" onclick="event.preventDefault(); history.pushState({}, '', '/#/'); window.dispatchEvent(new Event('hashchange'));">Back to Digi</a>
         </div>
       </div>
     </section>
