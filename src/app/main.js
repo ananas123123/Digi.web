@@ -1,5 +1,6 @@
 import "../styles/main.css";
 import NotFound from "../pages/NotFound/NotFound.jsx";
+import PageTransition from "../components/PageTransition/PageTransition.jsx";
 
 const RELEASES_API = "https://api.github.com/repos/ananas123123/Digi-Factory-1.17.7.5/releases";
 let releaseCache = null;
@@ -31,8 +32,7 @@ function nav() {
 }
 
 function layout(content) {
-  return '<div class="shell">' + nav() + '<main class="fade">' + content +
-    '</main><footer class="footer">Digi installer website · simple by design</footer></div>';
+  return '<div class="shell">' + nav() + PageTransition(content) + '<footer class="footer">Digi installer website · simple by design</footer></div>';
 }
 
 function home() {
@@ -131,7 +131,7 @@ async function render() {
   else if (key === "/releases") html = await releases();
   else if (key === "/requirements") html = requirements();
   else if (key === "/verify") html = await verify();
-  else html = NotFound();
+  else html = PageTransition(NotFound());
   document.querySelector("#app").innerHTML = html;
   if (key === "/") hydrateHome();
   const copy = document.querySelector("#copy");
