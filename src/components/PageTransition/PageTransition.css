@@ -1,0 +1,22 @@
+.digi-page-transition {
+  animation: digi-page-transition-enter 200ms ease-out both;
+  will-change: opacity, transform;
+}
+
+@keyframes digi-page-transition-enter {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .digi-page-transition {
+    animation: none;
+  }
+}
