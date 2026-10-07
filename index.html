@@ -16,7 +16,9 @@
 <script type="module">
 import NotFound from "./src/pages/NotFound/NotFound.jsx";
 import PageTransition from "./src/components/PageTransition/PageTransition.jsx";
+import ScrollToTop from "./src/components/ScrollToTop/ScrollToTop.jsx";
 (function(){
+ScrollToTop();
 const API="https://api.github.com/repos/ananas123123/Digi-Factory-1.17.7.5/releases";
 let cache=null;
 const pages={"/":"Home","/download":"Download","/releases":"Releases","/instructions":"Instructions","/support":"Support"};
