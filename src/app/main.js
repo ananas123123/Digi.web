@@ -64,7 +64,7 @@ async function hydrateHome() {
 async function download() {
   let release;
   try { release = (await getReleases())[0]; } catch {}
-  const asset = release?.assets?.find(a => /\\.exe$/i.test(a.name));
+  const asset = release?.assets?.find(a => /\.exe$/i.test(a.name));
   let body = '<section class="page"><div class="eyebrow">Download</div><h1>Digi installer</h1>' +
     '<p>The download button uses the latest published GitHub release asset. Nothing is hard-coded to an old installer.</p>';
   if (!release) {
@@ -103,7 +103,7 @@ function requirements() {
 async function verify() {
   let release;
   try { release = (await getReleases())[0]; } catch {}
-  const asset = release?.assets?.find(a => /\\.exe$/i.test(a.name));
+  const asset = release?.assets?.find(a => /\.exe$/i.test(a.name));
   return layout('<section class="page"><div class="eyebrow">Verification</div><h1>Verify the installer</h1>' +
     '<p>When a release provides a SHA-256 digest, it can be copied from here.</p>' +
     (asset
