@@ -164,7 +164,7 @@ function bindFloatingNav(){
       syncPosition();
       return;
     }
-    if(nav.getBoundingClientRect().bottom<=0){
+    if(window.scrollY>0){
       activated=true;
       ensureFloating();
       syncPosition();
@@ -174,7 +174,7 @@ function bindFloatingNav(){
 
   update();
   window.addEventListener("scroll",update,{passive:true});
-  window.addEventListener("resize",update,{passive:true});
+  window.addEventListener("resize",syncPosition,{passive:true});
 }
 function bindFeedback(){
   if(document.getElementById("feedbackOverlay"))document.getElementById("feedbackOverlay").remove();
