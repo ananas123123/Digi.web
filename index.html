@@ -136,9 +136,8 @@ function bindPage(){
 }
 
 function bindFloatingNav(){
-  const nav=document.querySelector(".nav");
-  const hero=document.querySelector(".hero");
-  if(!nav||!hero)return;
+  const nav=document.querySelector(".nav:not(.nav-floating)");
+  if(!nav)return;
 
   let floating=null;
   let hideTimer=null;
@@ -151,7 +150,7 @@ function bindFloatingNav(){
       floating.removeAttribute("style");
       document.body.appendChild(floating);
       const coffee=floating.querySelector("[data-coffee-trigger]");
-      if(coffee)coffee.addEventListener("click",()=>document.querySelector(".nav:not(.nav-floating) [data-coffee-trigger]")?.click());
+      if(coffee)coffee.addEventListener("click",()=>nav.querySelector("[data-coffee-trigger]")?.click());
       requestAnimationFrame(()=>floating&&floating.classList.add("nav-floating-visible"));
     }else{
       floating.classList.add("nav-floating-visible");
@@ -168,12 +167,12 @@ function bindFloatingNav(){
         floating=null;
       }
       hideTimer=null;
-    },430);
+    },250);
   };
 
   const update=()=>{
-    const outOfFrame=hero.getBoundingClientRect().bottom<=0;
-    if(outOfFrame)show();
+    const navOutOfFrame=nav.getBoundingClientRect().bottom<=0;
+    if(navOutOfFrame)show();
     else hide();
   };
 
