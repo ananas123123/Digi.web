@@ -141,6 +141,15 @@ function bindFloatingNav(){
 
   let floating=null;
   let hideTimer=null;
+  let raf=0;
+  let visible=false;
+
+  const syncPosition=()=>{
+    if(!floating)return;
+    const rect=nav.getBoundingClientRect();
+    floating.style.left=(rect.left-24)+"px";
+    floating.style.width=(rect.width+48)+"px";
+  };
 
   const show=()=>{
     if(hideTimer){clearTimeout(hideTimer);hideTimer=null}
@@ -151,29 +160,39 @@ function bindFloatingNav(){
       document.body.appendChild(floating);
       const coffee=floating.querySelector("[data-coffee-trigger]");
       if(coffee)coffee.addEventListener("click",()=>nav.querySelector("[data-coffee-trigger]")?.click());
-      requestAnimationFrame(()=>floating&&floating.classList.add("nav-floating-visible"));
-    }else{
-      floating.classList.add("nav-floating-visible");
     }
+    syncPosition();
+    requestAnimationFrame(()=>{
+      if(floating){
+        floating.classList.add("nav-floating-visible");
+        visible=true;
+      }
+    });
   };
 
   const hide=()=>{
     if(!floating)return;
     floating.classList.remove("nav-floating-visible");
+    visible=false;
     if(hideTimer)clearTimeout(hideTimer);
     hideTimer=setTimeout(()=>{
-      if(floating&&!floating.classList.contains("nav-floating-visible")){
+      if(floating&&!visible){
         floating.remove();
         floating=null;
       }
       hideTimer=null;
-    },250);
+    },190);
   };
 
   const update=()=>{
-    const navOutOfFrame=nav.getBoundingClientRect().bottom<=0;
-    if(navOutOfFrame)show();
-    else hide();
+    if(raf)return;
+    raf=requestAnimationFrame(()=>{
+      raf=0;
+      const outOfFrame=nav.getBoundingClientRect().bottom<=0;
+      if(outOfFrame)show();
+      else hide();
+      if(floating)syncPosition();
+    });
   };
 
   update();
