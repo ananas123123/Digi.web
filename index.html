@@ -212,15 +212,21 @@ function bindHero(){
 function bindScrollReveal(){
   const sections=document.querySelectorAll(".digi-story,.info-reveal,.feedback-reveal,.site-footer-reveal");
   if(!sections.length)return;
+  sections.forEach(section=>{
+    section.classList.remove("is-visible");
+    section.style.setProperty("--reveal-state","0");
+  });
   const observer=new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){
         entry.target.classList.add("is-visible");
-      }else if(entry.boundingClientRect.top < 0){
+        entry.target.style.setProperty("--reveal-state","1");
+      }else{
         entry.target.classList.remove("is-visible");
+        entry.target.style.setProperty("--reveal-state","0");
       }
     });
-  },{threshold:0,rootMargin:"-8% 0px -8% 0px"});
+  },{threshold:.08,rootMargin:"-10% 0px -10% 0px"});
   sections.forEach(section=>observer.observe(section));
 }
 
