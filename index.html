@@ -484,7 +484,8 @@ function applyTheme(theme){
   document.body.dataset.theme=next;
   document.querySelectorAll("[data-theme-toggle]").forEach(button=>{
     const light=next==="light";
-    // Keep the text-only mobile control intact; never replace its label with an icon.
+    // Desktop keeps the icon-only toggle; mobile shows only the text label in the menu.
+    if(!button.classList.contains("mobile-theme-toggle"))button.textContent=light?"☾":"☼";
     button.setAttribute("aria-label",light?"Switch to dark mode":"Switch to light mode");
     button.title=light?"Switch to dark mode":"Switch to light mode";
   });
