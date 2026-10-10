@@ -49,6 +49,56 @@ body{animation:none!important;background-size:auto!important}
 .site-footer-reveal,.digi-story .story-intro,.digi-story .story-card,.info-reveal,.feedback-reveal{opacity:1!important;transform:none!important;pointer-events:auto!important}
 .digi-story .story-intro,.digi-story .story-card,.site-footer-reveal,.info-reveal,.feedback-reveal{transition:none!important}
 a,button,.button,.row,.info-card,.story-card,.workflow-step,.resource-item,.download-option,.download-expand,.release-info-button,.feedback-modal,.coffee-modal,.feedback-input,.coffee-link,.hero-card{transition-duration:.15s!important}
+
+/* Theme toggle and light theme. The default dark theme remains unchanged. */
+.theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--gold-light);font-size:20px;line-height:1;cursor:pointer;transition:background .15s ease,color .15s ease,border-color .15s ease}
+.theme-toggle:hover{border-color:var(--gold);background:#29271e;color:#fff}
+.nav .links{align-items:center}
+body[data-theme="light"]{color:#202018;background:#f5f4ef;--muted:#65655d;--line:#d8d6cb;--panel:#fff;--gold:#b28a0e;--gold-light:#8b6a00;--gold-dark:#735700;background-image:radial-gradient(circle at 50% -10%,#fff3c7 0,#f5f4ef 48%,#ecebe4 100%)}
+body[data-theme="light"] .nav{background:#fffffff2;border-color:#d8d6cb;box-shadow:0 10px 30px #24200b12}
+body[data-theme="light"] .brand{color:#202018;text-shadow:none}
+body[data-theme="light"] .links a{color:#65655d}
+body[data-theme="light"] .links a:hover,body[data-theme="light"] .links a.active{background:#202018;color:#fff}
+body[data-theme="light"] .coffee-link{background:#202018!important;color:#fff!important}
+body[data-theme="light"] .coffee-link:hover{background:#fff!important;color:var(--gold)!important}
+body[data-theme="light"] .theme-toggle{background:#fff;color:#735700}
+body[data-theme="light"] .theme-toggle:hover{background:#f1eddf;color:#202018}
+body[data-theme="light"] .button{background:#fff;color:#202018;border-color:#d8d6cb}
+body[data-theme="light"] .button:hover{background:#f1eddf;border-color:#bca95f}
+body[data-theme="light"] .button.primary{background:var(--gold);border-color:var(--gold);color:#fff}
+body[data-theme="light"] .button.primary:hover{background:#202018;color:#f1d36a;border-color:var(--gold)}
+body[data-theme="light"] .card,body[data-theme="light"] .download-option{background:#fff;border-color:var(--line);box-shadow:0 10px 35px #24200b0b}
+body[data-theme="light"] .card h2,body[data-theme="light"] .card h3,body[data-theme="light"] .story-card h3,body[data-theme="light"] .resource-item strong,body[data-theme="light"] .workflow-step strong{color:#202018;text-shadow:none}
+body[data-theme="light"] .story-intro h2,body[data-theme="light"] .info-reveal h2{color:#202018}
+body[data-theme="light"] .story-card,body[data-theme="light"] .workflow-step{background:linear-gradient(145deg,#fff,#f5f4ef);border-color:var(--line)}
+body[data-theme="light"] .story-card:hover,body[data-theme="light"] .workflow-step:hover{box-shadow:0 18px 45px #24200b12}
+body[data-theme="light"] .resource-list{background:#fff;border-color:var(--line)}
+body[data-theme="light"] .resource-item{border-color:var(--line)}
+body[data-theme="light"] .resource-item:hover{background:#f5f4ef}
+body[data-theme="light"] .resource-console{background:#fff;border-color:var(--line);box-shadow:0 18px 45px #24200b0b}
+body[data-theme="light"] .console-query{color:#202018}
+body[data-theme="light"] .story-terminal{background:#fff}
+body[data-theme="light"] .terminal-top{border-color:var(--line)}
+body[data-theme="light"] .terminal-top b,body[data-theme="light"] .terminal-muted,body[data-theme="light"] .story-code,body[data-theme="light"] .story-index,body[data-theme="light"] .story-end{color:#77766d}
+body[data-theme="light"] .row{background:#fff;border-color:var(--line)}
+body[data-theme="light"] .notice{background:#fff8df;border-color:#e2d5a5;color:#554b2d}
+body[data-theme="light"] .info-button{background:#fff;border-color:var(--line);color:#735700}
+body[data-theme="light"] .release-info-overlay{background:#0007}
+body[data-theme="light"] .release-info-modal{background:#fff;border-color:#bfdbfe;color:#202018;box-shadow:0 25px 90px #0003,0 0 30px #3b82f611}
+body[data-theme="light"] .release-info-modal-header p{color:#65655d}
+body[data-theme="light"] .release-info-close{background:#f5f4ef;border-color:#d8d6cb;color:#202018}
+body[data-theme="light"] .release-info-section{background:#faf9f5;border-color:#deddd4}
+body[data-theme="light"] .release-info-section ul,body[data-theme="light"] .release-info-section p{color:#4f4f47}
+body[data-theme="light"] .release-info-footer{border-color:#deddd4;color:#77766d}
+body[data-theme="light"] .feedback-modal,body[data-theme="light"] .coffee-modal{background:#fff;color:#202018;border-color:var(--line)}
+body[data-theme="light"] .feedback-input{background:#fff;color:#202018;border-color:var(--line)}
+body[data-theme="light"] .footer{color:#202018}
+body[data-theme="light"] .footer-description,body[data-theme="light"] .footer-links a{color:#65655d}
+body[data-theme="light"] .hero-card .inner{background:radial-gradient(circle 280px at 0% 0%,#fff4c8,#202018);color:#fff}
+body[data-theme="light"] .hero-card{box-shadow:0 12px 30px #24200b12}
+body[data-theme="light"] .release-info-modal{scrollbar-width:none}
+.release-info-modal{scrollbar-width:none;-ms-overflow-style:none}
+.release-info-modal::-webkit-scrollbar{display:none;width:0;height:0}
 </style>
 </head>
 <body>
@@ -65,7 +115,7 @@ function nav(){
   const current=location.hash.slice(1)||"/";
   return '<header class="nav"><a class="brand" href="#/">Digi</a><nav class="links">'+
     Object.keys(pages).map(p=>'<a class="'+(current===p?"active":"")+'" href="#'+p+'">'+pages[p]+"</a>").join("")+
-    '<button class="coffee-link" type="button" aria-label="Buy us a coffee" data-coffee-trigger><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h11v5.5A4.5 4.5 0 0 1 11.5 18h-2A4.5 4.5 0 0 1 5 13.5V8Zm11 1h2a2 2 0 0 1 0 4h-2.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 20h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></nav></header>';
+    '<button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to light mode" title="Switch to light mode">☼</button><button class="coffee-link" type="button" aria-label="Buy us a coffee" data-coffee-trigger><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h11v5.5A4.5 4.5 0 0 1 11.5 18h-2A4.5 4.5 0 0 1 5 13.5V8Zm11 1h2a2 2 0 0 1 0 4h-2.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 20h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></nav></header>';
 }
 
 function layout(content){
@@ -216,6 +266,7 @@ function bindReleaseInfo(){
 }
 
 function bindPage(){
+  bindThemeToggle();
   bindFeedback();
   bindCoffee();
   bindDownload();
@@ -226,6 +277,26 @@ function bindPage(){
 }
 
 function bindFloatingNav(){}
+function applyTheme(theme){
+  const next=theme==="light"?"light":"dark";
+  document.body.dataset.theme=next;
+  document.querySelectorAll("[data-theme-toggle]").forEach(button=>{
+    const light=next==="light";
+    button.textContent=light?"☾":"☼";
+    button.setAttribute("aria-label",light?"Switch to dark mode":"Switch to light mode");
+    button.title=light?"Switch to dark mode":"Switch to light mode";
+  });
+}
+function bindThemeToggle(){
+  document.querySelectorAll("[data-theme-toggle]").forEach(button=>{
+    button.onclick=()=>{
+      const next=document.body.dataset.theme==="light"?"dark":"light";
+      applyTheme(next);
+      try{localStorage.setItem("digi-theme",next)}catch(e){}
+    };
+  });
+}
+try{applyTheme(localStorage.getItem("digi-theme")||"dark")}catch(e){applyTheme("dark")}
 function bindFeedback(){
   if(document.getElementById("feedbackOverlay"))document.getElementById("feedbackOverlay").remove();
   const overlay=document.createElement("div");
