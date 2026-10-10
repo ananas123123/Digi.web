@@ -427,7 +427,25 @@ function bindPage(){
   bindFloatingNav();
 }
 
-function bindFloatingNav(){\n  const header=document.querySelector(".nav");\n  const toggle=header?.querySelector(".mobile-menu-toggle");\n  if(!header||!toggle)return;\n  const close=()=>{header.classList.remove("mobile-menu-open");toggle.setAttribute("aria-expanded","false");toggle.setAttribute("aria-label","Open navigation menu")};\n  toggle.addEventListener("click",()=>{const open=!header.classList.contains("mobile-menu-open");header.classList.toggle("mobile-menu-open",open);toggle.setAttribute("aria-expanded",String(open));toggle.setAttribute("aria-label",open?"Close navigation menu":"Open navigation menu")});\n  header.querySelectorAll(".links a[data-route],.links a").forEach(link=>link.addEventListener("click",close));\n  document.addEventListener("keydown",function closeOnEscape(event){if(event.key==="Escape"){close();document.removeEventListener("keydown",closeOnEscape)}});\n  document.addEventListener("click",event=>{if(!header.contains(event.target))close()},{once:false});\n}
+function bindFloatingNav(){
+  const header=document.querySelector(".nav");
+  const toggle=header?.querySelector(".mobile-menu-toggle");
+  if(!header||!toggle)return;
+  const close=()=>{
+    header.classList.remove("mobile-menu-open");
+    toggle.setAttribute("aria-expanded","false");
+    toggle.setAttribute("aria-label","Open navigation menu");
+  };
+  toggle.addEventListener("click",()=>{
+    const open=!header.classList.contains("mobile-menu-open");
+    header.classList.toggle("mobile-menu-open",open);
+    toggle.setAttribute("aria-expanded",String(open));
+    toggle.setAttribute("aria-label",open?"Close navigation menu":"Open navigation menu");
+  });
+  header.querySelectorAll(".links a").forEach(link=>link.addEventListener("click",close));
+  document.addEventListener("keydown",event=>{if(event.key==="Escape")close()});
+  document.addEventListener("click",event=>{if(!header.contains(event.target))close()});
+}
 function applyTheme(theme){
   const next=theme==="light"?"light":"dark";
   document.body.dataset.theme=next;
