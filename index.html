@@ -378,6 +378,7 @@ async function render(){
     app.innerHTML=html;
     try{bindPage()}catch(e){console.error("Digi interaction error:",e)}
     window.scrollTo(0,0);
+    updateFooterVisibility();
   }catch(e){
     console.error("Digi render error:",e);
     app.innerHTML=layout('<section class="page"><h1>Something went wrong</h1><p>The page could not be rendered.</p></section>');
@@ -548,7 +549,7 @@ document.addEventListener("click",e=>{
 });
 
 window.addEventListener("hashchange",render);
-window.addEventListener("scroll",()=>{const y=window.scrollY||document.documentElement.scrollTop||0;document.body.classList.toggle("has-scrolled",y>18);document.querySelectorAll(".site-footer-reveal").forEach(footer=>footer.classList.toggle("is-visible",y>2));},{passive:true});
+function updateFooterVisibility(){const y=window.scrollY||document.documentElement.scrollTop||0;document.body.classList.toggle("has-scrolled",y>18);document.querySelectorAll(".site-footer-reveal").forEach(footer=>{const visible=y>2;footer.classList.toggle("is-visible",visible);footer.style.setProperty("opacity",visible?"1":"0","important");footer.style.setProperty("transform",visible?"translateY(0)":"translateY(32px)","important");footer.style.setProperty("pointer-events",visible?"auto":"none","important");});}window.addEventListener("scroll",updateFooterVisibility,{passive:true});
 window.addEventListener("keydown",e=>{
   if(e.key==="Escape"){
     document.querySelectorAll(".feedback-overlay.open,.coffee-overlay.open,.release-info-overlay.open").forEach(x=>x.classList.remove("open"));
