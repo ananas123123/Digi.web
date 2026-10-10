@@ -40,6 +40,22 @@
 .release-info-footer{margin-top:18px;padding-top:16px;border-top:1px solid #35342e;color:#77766f;font:11px/1.7 ui-monospace,monospace;overflow-wrap:anywhere}
 @media(max-width:650px){.release-info-sections{grid-template-columns:1fr}.release-actions{align-self:stretch;justify-content:flex-start}.release-info-overlay{padding:10px}.release-info-modal{max-height:92vh}}
 @media(prefers-reduced-motion:reduce){.latest-release-card{animation:none}}
+
+/* Simple mode: keep only the initial page-entry animations. */
+*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+.fade{animation:pageEnter .8s cubic-bezier(.22,1,.36,1) both!important}
+.nav{animation:navEnter .8s cubic-bezier(.22,1,.36,1) .05s both!important}
+.hero{animation:pageEnter .85s cubic-bezier(.22,1,.36,1) .14s both!important}
+.hero .eyebrow{animation:pageEnter .7s cubic-bezier(.22,1,.36,1) .22s both!important}
+.hero h1{animation:pageEnter .9s cubic-bezier(.22,1,.36,1) .28s both!important}
+.hero p{animation:pageEnter .8s cubic-bezier(.22,1,.36,1) .38s both!important}
+.hero .actions{animation:pageEnter .8s cubic-bezier(.22,1,.36,1) .46s both!important}
+.hero+.grid{animation:pageEnter .85s cubic-bezier(.22,1,.36,1) .54s both!important}
+.footer{animation:pageEnter .7s cubic-bezier(.22,1,.36,1) .64s both!important}
+.has-scrolled .hero{padding-top:125px;padding-bottom:95px}
+.has-scrolled .hero-card,.has-scrolled .hero-copy{transform:none!important}
+.site-footer-reveal,.digi-story .story-intro,.digi-story .story-card,.info-reveal,.feedback-reveal{opacity:1!important;transform:none!important;pointer-events:auto!important}
+.latest-release-card{animation:none!important}
 </style>
 </head>
 <body>
@@ -255,24 +271,7 @@ function bindCoffee(){
   const overlay=document.createElement("div");
   overlay.id="coffeeOverlay";
   overlay.className="coffee-overlay";
-  overlay.innerHTML='<div class="coffee-modal-wrap"><div class="coffee-modal"><button class="coffee-close" type="button" aria-label="Close"></button><div class="coffee-icon-large"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h11v5.5A4.5 4.5 0 0 1 11.5 18h-2A4.5 4.5 0 0 1 5 13.5V8Zm11 1h2a2 2 0 0 1 0 4h-2.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 20h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><h2>Buy us a coffee</h2><p>If Digi is useful to you, you can support its development by buying us a coffee.</p><div class="coffee-actions"><button class="button" type="button" data-coffee-cancel>Maybe later</button><a class="button primary" href="https://buymeacoffee.com/ananas123123" target="_blank" rel="noreferrer">Buy a coffee ↗</a></div></div></div>';
-  document.body.appendChild(overlay);
-  document.querySelector("[data-coffee-trigger]").onclick=()=>{overlay.classList.add("open");document.body.style.overflow="hidden"};
-  overlay.querySelector(".coffee-close").onclick=close;
-  overlay.querySelector("[data-coffee-cancel]").onclick=close;
-  overlay.onclick=e=>{if(e.target===overlay)close()};
-  function close(){overlay.classList.remove("open");document.body.style.overflow=""}
-}
-
-function bindDownload(){
-  const button=document.querySelector(".download-expand:not(.disabled)");
-  if(!button)return;
-  const action=button.parentElement;
-  const thanks=document.createElement("div");
-  thanks.className="download-thanks";
-  thanks.setAttribute("aria-live","polite");
-  thanks.innerHTML=Array.from("Thank you for downloading Digi").map((ch,i)=>'<i class="thanks-letter" style="transition-delay:'+((i+1)*28)+'ms">'+(ch===" "?"&nbsp;":ch)+'</i>').join("")+'<span class="thanks-dot"></span>';
-  action.appendChild(thanks);
+  overlay.innerHTML='<div class="coffee-modal-wrap"><div class="coffee-modal"><button class="coffee-close" type="button" aria-label="Close"></button><div class="coffee-icon-large"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h11v5.5A4.5 4.5 0 0 1 11.5 18h-2A4.5 4.5 0 0 1 5 13.5V8Zm11 1h2a2 2 0 0 1 0 4h-2.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 20h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div><h2>Buy us a coffee</h2><p>If Digi is useful to you, you can support its development by buying us a coffee.</p><div class="coffee-actions"><button class="button" type="button" data-coffee-canfunction bindHero(){}ild(thanks);
   button.onclick=()=>{button.classList.add("clicked");setTimeout(()=>thanks.classList.add("show"),430)};
 }
 
@@ -292,27 +291,7 @@ function bindHero(){
   }
 }
 
-function bindScrollReveal(){
-  const sections=document.querySelectorAll(".digi-story,.info-reveal,.feedback-reveal,.site-footer-reveal");
-  if(!sections.length)return;
-  sections.forEach(section=>{
-    section.classList.remove("is-visible");
-    section.style.setProperty("--reveal-state","0");
-  });
-  const observer=new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add("is-visible");
-        entry.target.style.setProperty("--reveal-state","1");
-      }else{
-        entry.target.classList.remove("is-visible");
-        entry.target.style.setProperty("--reveal-state","0");
-      }
-    });
-  },{threshold:.08,rootMargin:"-10% 0px -10% 0px"});
-  sections.forEach(section=>observer.observe(section));
-}
-
+function bindScrollReveal(){}
 document.addEventListener("click",e=>{
   const route=e.target.closest("[data-route]");
   if(route){e.preventDefault();location.hash="#"+route.dataset.route}
