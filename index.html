@@ -34,7 +34,7 @@ function layout(content){
     '<footer class="footer site-footer-reveal"><div class="footer-grid"><div class="footer-brand-block"><div class="footer-brand">Digi<span>.</span></div><p class="footer-description">A focused Windows desktop search application built to help you find what you need on your computer quickly and efficiently.</p></div>'+
     '<div><div class="footer-heading">Product</div><div class="footer-links"><a href="#/download">Download</a><a href="#/releases">Releases</a><a href="#/instructions">Installation</a></div></div>'+
     '<div><div class="footer-heading">Support</div><div class="footer-links"><a href="#/support">Get support</a></div></div>'+
-    '<div><div class="footer-heading project-heading">Project <span class="dev-status" tabindex="0"><span class="dev-dot"></span><span class="dev-tooltip">Update 1.1.0.0 is currently in development.</span></span></div><div class="footer-links"><a href="#/releases">Changelog</a><a href="#/support">Contact</a></div></div></div>'+
+    '<div><div class="footer-heading project-heading">Project <span class="dev-status" tabindex="0"><span class="dev-dot"></span><span class="dev-tooltip">Digi 1.1.0.0 is the current stable release.</span></span></div><div class="footer-links"><a href="#/releases">Changelog</a><a href="#/support">Contact</a></div></div></div>'+
     '<div class="footer-bottom"><div class="footer-meta"><span>© 2026 Digi</span><span>Windows desktop application</span><span>Digi installer website</span></div><div class="footer-status"><strong>Built for Digi</strong><span class="footer-status-dot"></span></div></div></footer></div>';
 }
 
@@ -63,16 +63,19 @@ function normalizeVersion(v){return String(v||"").replace(/^v/i,"")}
 
 function withCurrentRelease(rs){
   const list=Array.isArray(rs)?rs.slice():[];
-  if(!list.some(r=>normalizeVersion(r.tag_name)===CURRENT_VERSION))
-    list.unshift({tag_name:"v1.1.0.0",name:"Digi 1.1.0.0",published_at:"2026-10-10T18:20:25Z",html_url:"https://github.com/ananas123123/digiwebversionreleases/releases/tag/v1.1.0.0",assets:[],prepared:true,releaseNotes:[
-      "Latest stable Digi release",
-      "Installer: Digi.Search.Engine.exe (249,486,929 bytes)",
-      "SHA-256: 60931cbfab3af4a71a9548d904be25a781776079f50264a8859ae53ab3d2e03d"
-    ]});
+  const currentNotes=[
+    "Latest stable Digi release",
+    "Installer: Digi.Search.Engine.exe (249,486,929 bytes)",
+    "SHA-256: 60931cbfab3af4a71a9548d904be25a781776079f50264a8859ae53ab3d2e03d"
+  ];
+  const currentIndex=list.findIndex(r=>normalizeVersion(r.tag_name)===CURRENT_VERSION);
+  if(currentIndex<0){
+    list.unshift({tag_name:"v1.1.0.0",name:"Digi 1.1.0.0",published_at:"2026-10-10T18:20:25Z",html_url:"https://github.com/ananas123123/digiwebversionreleases/releases/tag/v1.1.0.0",assets:[],prepared:true,releaseNotes:currentNotes});
+  }else{
+    list[currentIndex]={...list[currentIndex],name:list[currentIndex].name||"Digi 1.1.0.0",published_at:list[currentIndex].published_at||"2026-10-10T18:20:25Z",html_url:list[currentIndex].html_url||"https://github.com/ananas123123/digiwebversionreleases/releases/tag/v1.1.0.0",prepared:true,releaseNotes:list[currentIndex].releaseNotes&&list[currentIndex].releaseNotes.length?list[currentIndex].releaseNotes:currentNotes};
+  }
   if(!list.some(r=>normalizeVersion(r.tag_name)==="1.0.0.0"))
-    list.push({tag_name:"v1.0.0.0",name:"Digi 1.0.0.0",published_at:null,html_url:"https://github.com/ananas123123/digiwebversionreleases/releases/tag/v1.0.0.0",assets:[],releaseNotes:[
-      "Previous stable Digi release"
-    ]});
+    list.push({tag_name:"v1.0.0.0",name:"Digi 1.0.0.0",published_at:null,html_url:"https://github.com/ananas123123/digiwebversionreleases/releases/tag/v1.0.0.0",assets:[],releaseNotes:["Previous stable Digi release"]});
   return list.sort((a,b)=>normalizeVersion(a.tag_name)===CURRENT_VERSION?-1:(normalizeVersion(b.tag_name)===CURRENT_VERSION?1:0));
 }
 
@@ -105,6 +108,10 @@ function support(){
   return layout('<section class="page"><div class="eyebrow">Support</div><h1>Get support</h1><p>Need help with Digi? Report a problem or ask for help through GitHub.</p><div class="list"><a class="row" href="https://github.com/ananas123123/Digi-Factory-1.17.7.5/issues" target="_blank" rel="noreferrer"><span><strong>Get support</strong><br><small>Open GitHub Issues for help.</small></span><span>↗</span></a></div></section>');
 }
 
+function releaseInfo(){
+  return layout('<section class="page"><div class="eyebrow">Current stable release</div><h1>Digi 1.1.0.0</h1><p>Published 10 October 2026 for Windows.</p><div class="grid"><article class="card"><h3>Installer package</h3><div class="stat">249.5 MB</div><p>Digi.Search.Engine.exe</p></article><article class="card"><h3>Release status</h3><div class="stat">Stable</div><p>Latest published version</p></article></div><div class="card"><h3>SHA-256 checksum</h3><p style="margin-top:10px;word-break:break-all;font-family:ui-monospace,monospace">60931cbfab3af4a71a9548d904be25a781776079f50264a8859ae53ab3d2e03d</p></div><div class="actions"><a class="button primary" href="#/download">View download</a><a class="button" href="#/releases">Release history</a></div></section>');
+}
+
 function simplePage(title){
   return layout('<section class="page"><div class="eyebrow">Digi</div><h1>'+title+'</h1><p>Information for the current Digi release.</p></section>');
 }
@@ -127,7 +134,7 @@ async function render(){
     else if(key==="/instructions") html=instructions();
     else if(key==="/support") html=support();
     else if(key==="/platform") html=simplePage("Windows");
-    else if(key==="/release-info") html=simplePage("Latest release");
+    else if(key==="/release-info") html=releaseInfo();
     else html=support();
     app.innerHTML=html;
     try{bindPage()}catch(e){console.error("Digi interaction error:",e)}
