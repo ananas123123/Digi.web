@@ -522,7 +522,7 @@ function bindHero(){
 }
 
 function bindScrollReveal(){
-  const sections=document.querySelectorAll(".digi-story,.info-reveal,.feedback-reveal,.site-footer-reveal");
+  const sections=document.querySelectorAll(".digi-story,.info-reveal,.feedback-reveal");
   if(!sections.length)return;
   sections.forEach(section=>{
     section.classList.remove("is-visible");
@@ -548,7 +548,7 @@ document.addEventListener("click",e=>{
 });
 
 window.addEventListener("hashchange",render);
-window.addEventListener("scroll",()=>document.body.classList.toggle("has-scrolled",window.scrollY>18),{passive:true});
+window.addEventListener("scroll",()=>{const y=window.scrollY||document.documentElement.scrollTop||0;document.body.classList.toggle("has-scrolled",y>18);document.querySelectorAll(".site-footer-reveal").forEach(footer=>footer.classList.toggle("is-visible",y>2));},{passive:true});
 window.addEventListener("keydown",e=>{
   if(e.key==="Escape"){
     document.querySelectorAll(".feedback-overlay.open,.coffee-overlay.open,.release-info-overlay.open").forEach(x=>x.classList.remove("open"));
